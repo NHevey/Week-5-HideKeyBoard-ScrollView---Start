@@ -16,21 +16,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtFirst: UITextField!
     @IBOutlet weak var txtLast: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
+    @IBOutlet weak var txtAddress: UITextField!
+    @IBOutlet weak var txtCity: UITextField!
+    @IBOutlet weak var txtState: UITextField!
+    @IBOutlet weak var txtZip: UITextField!
+    @IBOutlet weak var txtPhone: UITextField!
     
 // 1) Add MessageBox function using AlertView
-     func MsgBox(message:NSString)
+    func MsgBox(message:NSString)
     {
         //Add Below Code from "Code for Steps.txt". Read Comments
         
         //Create Alert
         var alert = UIAlertView()
-        alert.title = message
+        alert.title = "Alert"
         alert.message = message
-        alert.addButtonWithTitle("Ok")
+        alert.addButtonWithTitle("OK")
         alert.show()
-        
-       
     }
+
+    
 // 2) Add touchesBegan function to catch screen tap and resign keyboard
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         //Add Below Code from "Code for Steps.txt". Read Comments
@@ -39,7 +44,12 @@ class ViewController: UIViewController {
         txtFirst.endEditing(true)
         txtLast.endEditing(true)
         txtEmail.endEditing(true)
-        
+        txtAddress.endEditing(true)
+        txtCity.endEditing(true)
+        txtState.endEditing(true)
+        txtZip.endEditing(true)
+        txtPhone.endEditing(true)
+       
     }
     
 // 3) Add DismissKeyboard function to resign keyboard on all textboxes
@@ -50,50 +60,50 @@ class ViewController: UIViewController {
         txtFirst.endEditing(true)
         txtLast.endEditing(true)
         txtEmail.endEditing(true)
-       
+        txtAddress.endEditing(true)
+        txtCity.endEditing(true)
+        txtState.endEditing(true)
+        txtZip.endEditing(true)
+        txtPhone.endEditing(true)
+    
     }
     
 //  4) Add textFieldShouldReturn function. This is called when 'return' key pressed on any UITextField. return NO to ignore.
     func textFieldShouldReturn(textField: UITextField!) -> Bool     {
          //Add Below Code from "Code for Steps.txt". Read Comments
         textField.resignFirstResponder()
-        
         return true;
     }
     
 //  5) Add textFieldDidBeginEditing function. ScrollPoint when entering UItextfied
     func textFieldDidBeginEditing(textField:UITextField){
-        var scrollPoint:CGPoint
-        scrollPoint = CGPointMake(0, textField.frame.origin.y)
-        ScrollView.setContentOffset(scrollPoint, animated: true)
          //Add Below Code from "Code for Steps.txt". Read Comments
-        
+        var scrollPoint:CGPoint
+        scrollPoint = CGPointMake(0,textField.frame.origin.y)
+        ScrollView.setContentOffset((scrollPoint), animated: true)
        
     }
     
 // 6) Add textFieldDidEndEditing function. ScrollPoint when done editing UItextfied
     func textFieldDidEndEditing(textField:UITextField){
-        ScrollView.setContentOffset(CGPointZero, animated: true)
-        
          //Add Below Code from "Code for Steps.txt". Read Comments
+        ScrollView.setContentOffset(CGPointZero, animated: true)
         
     }
     
 // 7) Add textViewDidBeginEditing function. ScrollPoint when entering UItextView
     func textViewDidBeginEditing(textField:UITextView){
+         //Add Below Code from "Code for Steps.txt". Read Comments
         var scrollPoint:CGPoint
         scrollPoint = CGPointMake(0, textField.frame.origin.y)
         ScrollView.setContentOffset(scrollPoint, animated: true)
-         //Add Below Code from "Code for Steps.txt". Read Comments
-       
         
     }
     
 // 8) Add textViewDidEndEditing function. ScrollPoint when done ending UItextView
     func textViewDidEndEditing(textField:UITextView){
-        ScrollView.setContentOffset(CGPointZero, animated:true)
          //Add Below Code from "Code for Steps.txt". Read Comments
-        
+        ScrollView.setContentOffset(CGPointZero, animated: true)
       
     }
     
@@ -106,22 +116,15 @@ class ViewController: UIViewController {
         //Add Below Code from "Code for Steps.txt". Read Comments
         
         //Looks for single or multiple taps
-        var tap:UITapGestureRecognizer =  UITapGestureRecognizer(target:self, action: "DismissKeyboard")
-       
+        var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         //Adds tap gesture to ScrollView which will call DismissKeyboard and hide keyboard
         ScrollView.addGestureRecognizer(tap)
-       
         //gets ScreenSize of current device
         let size: CGRect = UIScreen.mainScreen().bounds
-        
-        
         //Go to left  = 0 pixels, top = 50 pixels, width or device in pixels, height of device in pixels
         ScrollView.frame = CGRectMake(0, 50, size.width, size.height)
-       
-        
         //Set focus on txtFirst
         txtFirst.becomeFirstResponder()
-        
         
     }
     
@@ -137,11 +140,9 @@ class ViewController: UIViewController {
         
         //Set ScrollPoint and Go to ZERO location (Top) of ScrollView - animated
         ScrollView.setContentOffset(CGPointZero, animated: true)
-       
         
         //set txtFirst as firstresponder
         txtFirst.becomeFirstResponder()
-       
     }
     
 // 12) Modify btnView functions. Goes to position in ScrollView where the btnBack button is
@@ -150,20 +151,16 @@ class ViewController: UIViewController {
         
         //hide keyboard
         DismissKeyboard()
-      
         
         //declare CGPoint scrollPoint
         var scrollPoint:CGPoint
-       
         
         //X = from Left, Y = from Top
         //get X = 0, Y = location of btnBack Y
         scrollPoint = CGPointMake(0, btnBack.frame.origin.y)
-       
         
         //Set ScrollPoint and Go to animated
         ScrollView.setContentOffset(scrollPoint, animated: true)
-       
         
     }
     
@@ -173,14 +170,14 @@ class ViewController: UIViewController {
        
         //hide keyboard
         DismissKeyboard()
-       
         
         //validation that all fields are entered
-        if (txtFirst.text=="" || txtLast.text=="" || txtEmail.text=="")
+        if (txtFirst.text=="" || txtLast.text=="" || txtEmail.text=="" ||
+            txtAddress.text=="" || txtCity.text=="" || txtState.text=="" ||
+            txtZip.text=="" || txtPhone.text=="")
         {
             //Call MessageBox if any fields are empty
             MsgBox("All fields required, please correct")
-            
         }
         else
         {
@@ -190,35 +187,32 @@ class ViewController: UIViewController {
             {
                 //if empty then add text and newline
                 txtContacts.text = "MyContacts \n"
-               
             }
             //format text
             
             //existing contents of txtContacts, newline, txtFirst, newline, txtLast, newline, txtEmail, newline
-            txtContacts.text = "\(txtContacts.text) \n\(txtFirst.text) \n\(txtLast.text) \n\(txtEmail.text)\n"
+            txtContacts.text = "\(txtContacts.text) \n\(txtFirst.text) \n\(txtLast.text) \n\(txtAddress.text) \n\(txtCity.text) \n\(txtState.text) \n\(txtZip.text) \n\(txtPhone.text)\n\(txtEmail.text)\n"
             //clear textboxes
             txtFirst.text = ""
             txtLast.text = ""
             txtEmail.text = ""
-            
-           
-            
-            
+            txtAddress.text = ""
+            txtCity.text = ""
+            txtState.text = ""
+            txtZip.text = ""
+            txtPhone.text = ""
             //load scrollview
             
-            
             //declare CGPoint scrollPoint
-            var scrollPoint:CGPoint
             
+            var scrollPoint:CGPoint
             
             //X = from Left, Y = from Top
             //get X = 0, Y = location of btnBack Y
             scrollPoint = CGPointMake(0, btnBack.frame.origin.y)
-        
             
             //Set ScrollPoint and Go to animated
             ScrollView.setContentOffset(scrollPoint, animated: true)
-            
         }
     }
     
